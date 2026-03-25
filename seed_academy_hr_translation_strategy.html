@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEED Academy — HR Translation Strategy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --seed-green: #1A7A52;
+    --seed-green-light: #E8F5EE;
+    --seed-green-mid: #2FAF72;
+    --seed-yellow: #F5C842;
+    --seed-yellow-light: #FFF9E6;
+    --seed-dark: #1A1A2E;
+    --seed-gray: #F4F4F0;
+    --seed-muted: #6B7280;
+    --seed-border: #E5E7EB;
+    --accent-coral: #FF6B4A;
+    --accent-purple: #7C5CBF;
+    --accent-blue: #2563EB;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: #FAFAF8;
+    color: var(--seed-dark);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: white;
+    border-bottom: 1px solid var(--seed-border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 18px; color: var(--seed-green); letter-spacing: -0.5px; }
+  .nav-tabs { display: flex; gap: 4px; }
+  .nav-tab {
+    padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    cursor: pointer; border: none; background: transparent; color: var(--seed-muted);
+    font-family: var(--font-body); transition: all 0.15s;
+  }
+  .nav-tab.active { background: var(--seed-green); color: white; }
+  .nav-tab:hover:not(.active) { background: var(--seed-gray); color: var(--seed-dark); }
+
+  /* SECTIONS */
+  section { display: none; padding: 2.5rem 2rem 4rem; max-width: 960px; margin: 0 auto; }
+  section.active { display: block; }
+
+  /* HERO */
+  .hero {
+    background: var(--seed-dark);
+    border-radius: 16px;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background: var(--seed-green-mid);
+    border-radius: 50%;
+    opacity: 0.12;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -60px; left: 30%;
+    width: 160px; height: 160px;
+    background: var(--seed-yellow);
+    border-radius: 50%;
+    opacity: 0.1;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--seed-yellow);
+    color: var(--seed-dark);
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 800; font-size: 2.4rem; line-height: 1.15;
+    color: white; letter-spacing: -1px; margin-bottom: 1rem;
+  }
+  .hero h1 span { color: var(--seed-green-mid); }
+  .hero p { color: rgba(255,255,255,0.7); font-size: 1rem; max-width: 540px; line-height: 1.7; }
+  .hero-stats { display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+  .hero-stat { }
+  .hero-stat-num { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--seed-yellow); }
+  .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+  /* INSIGHT CARDS */
+  .insight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .insight-card {
+    background: white; border: 1px solid var(--seed-border);
+    border-radius: 12px; padding: 1.25rem;
+  }
+  .insight-icon { font-size: 28px; margin-bottom: 0.75rem; }
+  .insight-title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin-bottom: 0.4rem; }
+  .insight-desc { font-size: 0.875rem; color: var(--seed-muted); line-height: 1.6; }
+
+  /* SECTION HEADINGS */
+  h2 { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.75rem; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--seed-green); margin-bottom: 0.4rem; }
+  .section-intro { font-size: 0.925rem; color: var(--seed-muted); margin-bottom: 1.75rem; line-height: 1.7; }
+
+  /* TRANSLATION CARDS */
+  .translation-card {
+    background: white; border: 1px solid var(--seed-border);
+    border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem;
+  }
+  .tc-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--seed-border);
+  }
+  .tc-day-badge {
+    font-family: var(--font-display); font-weight: 800; font-size: 11px;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+    white-space: nowrap;
+  }
+  .tc-title { font-weight: 500; font-size: 0.95rem; }
+  .tc-body { padding: 1.25rem; display: grid; grid-template-columns: 1fr 48px 1fr; gap: 12px; align-items: start; }
+  .tc-col { }
+  .tc-col-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .tc-bubble {
+    background: var(--seed-gray); border-radius: 10px; padding: 0.875rem 1rem;
+    font-size: 0.875rem; line-height: 1.6;
+  }
+  .tc-bubble.result {
+    background: var(--seed-green-light);
+    border-left: 3px solid var(--seed-green);
+  }
+  .tc-bubble.result strong { color: var(--seed-green); }
+  .tc-arrow { display: flex; align-items: center; justify-content: center; padding-top: 2rem; }
+  .tc-arrow span { font-size: 24px; color: var(--seed-muted); }
+  .tc-footer {
+    padding: 0.875rem 1.25rem;
+    background: var(--seed-yellow-light);
+    border-top: 1px solid #F0E2A0;
+    font-size: 0.8rem; color: #7A6010;
+    display: flex; gap: 0.5rem; align-items: flex-start;
+  }
+  .tc-footer-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+
+  /* DAY COLORS */
+  .day-mon { background: #EDE8FD; color: #5B3FBF; }
+  .day-tue { background: #FDE8E8; color: #BF3F3F; }
+  .day-wed { background: #E8F5EE; color: #1A7A52; }
+  .day-thu { background: #FFF1DA; color: #916000; }
+  .day-fri { background: #E8F0FD; color: #1E40AF; }
+
+  /* CTA BOX */
+  .cta-box {
+    border: 1.5px dashed var(--seed-green);
+    border-radius: 10px; padding: 0.875rem 1.25rem;
+    margin-top: 1rem; background: var(--seed-green-light);
+    font-size: 0.85rem;
+  }
+  .cta-label { font-weight: 700; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--seed-green); margin-bottom: 0.3rem; }
+  .cta-text { color: #1A5535; line-height: 1.6; }
+
+  /* CALENDAR GRID */
+  .calendar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--seed-border); border-radius: 12px; overflow: hidden; border: 1px solid var(--seed-border); margin-bottom: 2rem; }
+  .cal-cell { background: white; padding: 1rem; }
+  .cal-header { background: var(--seed-dark); color: white; padding: 0.75rem 1rem; font-family: var(--font-display); font-weight: 700; font-size: 0.875rem; letter-spacing: 0.5px; }
+  .cal-series { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; display: inline-block; margin-bottom: 0.5rem; }
+  .cal-desc { font-size: 0.8rem; color: var(--seed-muted); line-height: 1.5; }
+  .cal-cta { font-size: 10px; color: var(--seed-green); font-weight: 600; margin-top: 0.5rem; }
+
+  /* VIRALITY SECTION */
+  .virality-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .v-card {
+    border-radius: 12px; padding: 1.25rem;
+    border: 1px solid var(--seed-border);
+    background: white;
+  }
+  .v-score { font-family: var(--font-display); font-weight: 800; font-size: 2rem; }
+  .v-label { font-size: 0.8rem; color: var(--seed-muted); margin-top: 2px; }
+  .v-desc { font-size: 0.825rem; line-height: 1.6; margin-top: 0.75rem; color: var(--seed-dark); }
+  .v-triggers { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
+  .v-trigger { font-size: 11px; background: var(--seed-gray); border-radius: 20px; padding: 3px 10px; color: var(--seed-muted); }
+
+  /* PERSONA SECTION */
+  .persona-card {
+    background: white; border: 1px solid var(--seed-border);
+    border-radius: 14px; padding: 1.5rem; margin-bottom: 1.25rem;
+  }
+  .persona-header { display: flex; align-items: center; gap: 14px; margin-bottom: 1rem; }
+  .persona-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 20px;
+  }
+  .persona-name { font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
+  .persona-role { font-size: 0.8rem; color: var(--seed-muted); }
+  .persona-quote {
+    background: var(--seed-gray); border-radius: 10px; padding: 1rem;
+    font-size: 0.875rem; line-height: 1.7; margin-bottom: 1rem;
+    font-style: italic; color: var(--seed-dark);
+    border-left: 3px solid var(--seed-green);
+  }
+  .persona-shares { font-size: 0.8rem; }
+  .persona-shares-title { font-weight: 600; margin-bottom: 0.4rem; }
+  ul.share-list { padding-left: 1.25rem; }
+  ul.share-list li { font-size: 0.825rem; color: var(--seed-muted); line-height: 1.6; }
+
+  /* TABS indicator */
+  .pill-divider { height: 1px; background: var(--seed-border); margin: 1.75rem 0; }
+
+  /* EXPANDABLE */
+  details { margin-bottom: 1rem; }
+  summary {
+    background: white; border: 1px solid var(--seed-border);
+    border-radius: 10px; padding: 1rem 1.25rem;
+    cursor: pointer; font-weight: 500; font-size: 0.925rem;
+    list-style: none; display: flex; justify-content: space-between; align-items: center;
+  }
+  summary::after { content: '﹢'; font-size: 1.2rem; color: var(--seed-muted); }
+  details[open] summary { border-radius: 10px 10px 0 0; border-bottom: none; }
+  details[open] summary::after { content: '－'; }
+  .details-body {
+    background: white; border: 1px solid var(--seed-border); border-top: none;
+    border-radius: 0 0 10px 10px; padding: 1.25rem;
+    font-size: 0.875rem; color: var(--seed-muted); line-height: 1.7;
+  }
+
+  /* DIRECTIONS */
+  .direction-card {
+    background: white; border: 1px solid var(--seed-border);
+    border-radius: 14px; padding: 1.5rem; margin-bottom: 1rem;
+  }
+  .direction-num {
+    font-family: var(--font-display); font-weight: 800; font-size: 2.5rem;
+    color: var(--seed-border); line-height: 1; margin-bottom: 0.5rem;
+  }
+  .direction-title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .direction-desc { font-size: 0.875rem; color: var(--seed-muted); line-height: 1.7; margin-bottom: 1rem; }
+  .direction-example {
+    background: var(--seed-gray); border-radius: 8px; padding: 0.875rem 1rem;
+    font-size: 0.85rem; line-height: 1.6;
+  }
+  .direction-example strong { color: var(--seed-green); }
+
+  /* responsive */
+  @media (max-width: 680px) {
+    .tc-body { grid-template-columns: 1fr; }
+    .tc-arrow { display: none; }
+    nav { padding: 0 1rem; }
+    section { padding: 1.5rem 1rem 3rem; }
+    .hero { padding: 1.75rem; }
+    .hero h1 { font-size: 1.75rem; }
+    .calendar { grid-template-columns: 1fr; }
+    .nav-tabs { gap: 2px; }
+    .nav-tab { padding: 5px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SEED Academy</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
+    <button class="nav-tab" onclick="showSection('calendar')">Calendar</button>
+    <button class="nav-tab" onclick="showSection('examples')">Translations</button>
+    <button class="nav-tab" onclick="showSection('virality')">Virality</button>
+    <button class="nav-tab" onclick="showSection('directions')">Directions</button>
+  </div>
+</nav>
+
+<!-- OVERVIEW -->
+<section id="overview" class="active">
+  <div class="hero">
+    <div class="hero-tag">Social Strategy 2025</div>
+    <h1>The <span>HR Translation</span><br>Content Engine</h1>
+    <p>A 5-day-a-week social media series that turns the absurdity of corporate life into shareable moments — and positions SEED Academy as the training partner that actually gets HR.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">5×</div><div class="hero-stat-label">Posts per week</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">HR</div><div class="hero-stat-label">Leaders as audience</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">1 CTA</div><div class="hero-stat-label">per post, end-of-post</div></div>
+    </div>
+  </div>
+
+  <div class="section-label">Why this works</div>
+  <h2>The Core Idea</h2>
+  <p class="section-intro">The LinkedIn Speak Translator went viral because of one thing: the <em>painful recognition</em> of language you live inside every day but never question. For HR leaders, there's an even richer vein — they are the human buffer between management speak and employee reality. They translate constantly, silently, exhaustingly. This series gives that experience a name, a laugh, and a home.</p>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="insight-icon">🎯</div>
+      <div class="insight-title">Recognition = Share</div>
+      <div class="insight-desc">The moment an HR leader reads a translation and thinks "this is literally my Monday," they screenshot it. They tag a colleague. Shared pain is a social currency in HR circles.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">😂</div>
+      <div class="insight-title">Funny = Reach</div>
+      <div class="insight-desc">Humour bypasses the algorithm resistance to brand content. A translation post doesn't feel like an ad — it feels like a friend who works in HR finally said the quiet part out loud.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">🪝</div>
+      <div class="insight-title">Series = Loyalty</div>
+      <div class="insight-desc">Monday is Boss Translator day. A consistent cadence trains the audience to expect and look for SEED content. It builds a community ritual, not just impressions.</div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-icon">🌱</div>
+      <div class="insight-title">CTA = Soft Sell</div>
+      <div class="insight-desc">HR leaders hate being sold to. Earn trust with content they love, then whisper the CTA at the end. The ratio should feel like: 90% relatable, 10% SEED. That's when they click.</div>
+    </div>
+  </div>
+
+  <div class="pill-divider"></div>
+  <div class="section-label">The Big Questions</div>
+  <h2>What We Need to Figure Out with Timmy & Sam</h2>
+  <p class="section-intro">Before locking the calendar, these are the insight questions worth testing with your HR leader contacts — they'll sharpen which translations land hardest.</p>
+
+  <details>
+    <summary>Q1: What's the corporate phrase you translate in your head every day?</summary>
+    <div class="details-body">
+      This is the gold mine question. Ask Timmy and Sam to brainstorm 5–10 phrases their CEO, CFO, or line managers use regularly — and what those phrases actually mean in practice. The translations that will go viral are the ones that are <em>hyper-specific</em> (not generic jargon) and have a gap between the official meaning and the real meaning. E.g. "We're family here" → "Expect unpaid overtime and emotional labour." The specificity is the humour.
+    </div>
+  </details>
+  <details>
+    <summary>Q2: What kind of content would you repost on your own LinkedIn right now?</summary>
+    <div class="details-body">
+      HR leaders curate their own brand carefully. Ask: would they share a meme? A text-only translation post? A video? A poll? Understanding their sharing comfort level tells you the format priority. Most likely: short-form text with a surprising translation headline does well because it's professional enough for LinkedIn but punchy enough to share. Video may work better for Instagram/TikTok repost days (Tuesday).
+    </div>
+  </details>
+  <details>
+    <summary>Q3: Is there a specific situation this week that drove you crazy — that you wish someone had trained leadership on?</summary>
+    <div class="details-body">
+      This reverse-engineers the CTA. If Timmy says "my CEO announced restructuring in an all-hands with zero preparation for how HR should respond" — that is a content idea AND a CTA hook. The translation post becomes "CEO says 'exciting restructuring ahead' → HR hears [panic] [no playbook] [employees in my DMs at 10pm]" → CTA: SEED Academy's Leadership Communication Training.
+    </div>
+  </details>
+  <details>
+    <summary>Q4: What do you wish your C-suite actually understood about your job?</summary>
+    <div class="details-body">
+      This surfaces the deep frustration that HR leaders rarely get to voice publicly. Turn those frustrations into the most emotionally resonant translation posts. These are the ones that get 200+ comments because other HR leaders pile on with "THIS." They also position SEED as a training partner that actually sees HR — not just a vendor selling courses.
+    </div>
+  </details>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar">
+  <div class="section-label">Weekly Rhythm</div>
+  <h2>5-Day Content Calendar</h2>
+  <p class="section-intro">Each day has a distinct format and purpose. The week builds from relatable humour (Mon–Tue) to practical insight (Wed–Thu) to community celebration (Fri) — with CTAs woven in naturally.</p>
+
+  <div class="calendar">
+    <div class="cal-header">Monday</div>
+    <div class="cal-header">Tuesday</div>
+    <div class="cal-header">Wednesday</div>
+    <div class="cal-header">Thursday</div>
+    <div class="cal-header">Friday</div>
+
+    <div class="cal-cell">
+      <div class="cal-series day-mon" style="background:#EDE8FD;color:#5B3FBF;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;display:inline-block;margin-bottom:0.5rem;">Boss Translator</div>
+      <div class="cal-desc">Translate a classic boss email / Slack message into what HR actually hears. Two panels: "What they said" vs "What HR understood."</div>
+      <div class="cal-cta">→ CTA: Leadership Training</div>
+    </div>
+    <div class="cal-cell">
+      <div class="cal-series day-tue" style="background:#FDE8E8;color:#BF3F3F;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;display:inline-block;margin-bottom:0.5rem;">Trend Translation</div>
+      <div class="cal-desc">Repost a viral TikTok/IG video with an HR-specific caption twist. Same energy, different planet — corporate edition.</div>
+      <div class="cal-cta">→ CTA: Light / newsletter</div>
+    </div>
+    <div class="cal-cell">
+      <div class="cal-series day-wed" style="background:#E8F5EE;color:#1A7A52;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;display:inline-block;margin-bottom:0.5rem;">HR Dictionary</div>
+      <div class="cal-desc">One corporate policy / HR phrase, with its "official" meaning and its real-world meaning side by side. Longer format, more insightful.</div>
+      <div class="cal-cta">→ CTA: Vendor / Training Selection</div>
+    </div>
+    <div class="cal-cell">
+      <div class="cal-series day-thu" style="background:#FFF1DA;color:#916000;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;display:inline-block;margin-bottom:0.5rem;">Trend Translation</div>
+      <div class="cal-desc">Repost a second viral TikTok/IG video or trending meme with an HR caption twist — Thursday edition leans more into workplace culture moments.</div>
+      <div class="cal-cta">→ CTA: SEED Training program</div>
+    </div>
+    <div class="cal-cell">
+      <div class="cal-series day-fri" style="background:#E8F0FD;color:#1E40AF;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;display:inline-block;margin-bottom:0.5rem;">HR Confessions</div>
+      <div class="cal-desc">Community post: "Submit your untranslated corporate message — we'll publish the translation next week." UGC flywheel + engagement spike.</div>
+      <div class="cal-cta">→ CTA: Follow / community join</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:1.5rem;">CTA Distribution</div>
+  <h2>When to Sell (Gently)</h2>
+  <p class="section-intro">At least 2 days per week should have CTAs tied directly to SEED's training offerings. The rest keep the vibe light — just a nudge to follow or subscribe.</p>
+  <div class="insight-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+    <div class="insight-card" style="border-left: 4px solid #5B3FBF;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5B3FBF;margin-bottom:0.5rem;">Monday — Hard CTA</div>
+      <div class="insight-desc">"When your C-suite needs a translator, that's a leadership communication gap. SEED Academy helps fix that. → [Link]"</div>
+    </div>
+    <div class="insight-card" style="border-left: 4px solid #1A7A52;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1A7A52;margin-bottom:0.5rem;">Wednesday — Hard CTA</div>
+      <div class="insight-desc">"Choosing the right training vendor shouldn't need a decoder ring either. SEED Academy speaks human. → [Link]"</div>
+    </div>
+    <div class="insight-card" style="border-left: 4px solid #916000;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#916000;margin-bottom:0.5rem;">Thursday — Hard CTA</div>
+      <div class="insight-desc">"If this trending moment made you think of your team, maybe it's time to invest in training that actually sticks. SEED Academy can help. → [Link]"</div>
+    </div>
+    <div class="insight-card" style="border-left: 4px solid #BF3F3F;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#BF3F3F;margin-bottom:0.5rem;">Tue + Fri — Soft CTA</div>
+      <div class="insight-desc">"Tag an HR friend who needs this." / "Follow for new translations every week." Build community first.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLE TRANSLATIONS -->
+<section id="examples">
+  <div class="section-label">Sample Content</div>
+  <h2>Translation Examples</h2>
+  <p class="section-intro">These are draft translations across all 5 days — written to feel genuinely funny and painfully real, not generic. Sharpen with Timmy & Sam's input.</p>
+
+  <!-- MONDAY -->
+  <div class="translation-card">
+    <div class="tc-header">
+      <div class="tc-day-badge day-mon">Monday</div>
+      <div class="tc-title">Boss Translator — "The Alignment Email"</div>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-label" style="color:#5B3FBF;">What the email said</div>
+        <div class="tc-bubble">
+          "Hi team, I just want to make sure we're all <strong>aligned</strong> on our Q4 priorities before we proceed. Let's schedule a quick sync to ensure we're all <strong>on the same page</strong> and moving forward <strong>together</strong>."
+        </div>
+      </div>
+      <div class="tc-arrow"><span>→</span></div>
+      <div class="tc-col">
+        <div class="tc-col-label" style="color:#1A7A52;">What HR heard</div>
+        <div class="tc-bubble result">
+          "I changed my mind about the strategy but I will not admit it. Please call a meeting so I can watch everyone else catch up <strong>without me ever saying the words 'I changed my mind.'</strong>"
+        </div>
+      </div>
+    </div>
+    <div class="tc-footer">
+      <span class="tc-footer-icon">💡</span>
+      <span><strong>Why this shares:</strong> Every HR leader has received this exact email. The translation names something they've always felt but never said out loud — leadership avoidance of accountability dressed up as collaboration.</span>
+    </div>
+  </div>
+  <div class="cta-box">
+    <div class="cta-label">Post CTA</div>
+    <div class="cta-text">Translation services not included. Leadership communication training is, though. SEED Academy helps your leaders say what they actually mean — so HR doesn't have to decode it. → [link]</div>
+  </div>
+
+  <div class="pill-divider"></div>
+
+  <!-- TUESDAY -->
+  <div class="translation-card">
+    <div class="tc-header">
+      <div class="tc-day-badge day-tue">Tuesday</div>
+      <div class="tc-title">Trend Translation — "CEO Townhall Energy"</div>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-label" style="color:#BF3F3F;">The viral video vibe</div>
+        <div class="tc-bubble">
+          That TikTok of the golden retriever running full-speed into a glass door it didn't see — bounces off, confused, tail still wagging.
+        </div>
+      </div>
+      <div class="tc-arrow"><span>→</span></div>
+      <div class="tc-col">
+        <div class="tc-col-label" style="color:#1A7A52;">The HR translation</div>
+        <div class="tc-bubble result">
+          <strong>Me when the CEO announces a "major culture transformation initiative"</strong> — and I'm in the room smiling, nodding, but I am the glass door. I have been the glass door for 18 months.
+        </div>
+      </div>
+    </div>
+    <div class="tc-footer">
+      <span class="tc-footer-icon">💡</span>
+      <span><strong>Why this shares:</strong> Visual humour + a very specific HR experience (being the one who absorbs the executive reality check). Repost-worthy because it's a meme format everyone already knows, re-skinned for a professional audience.</span>
+    </div>
+  </div>
+
+  <div class="pill-divider"></div>
+
+  <!-- WEDNESDAY -->
+  <div class="translation-card">
+    <div class="tc-header">
+      <div class="tc-day-badge day-wed">Wednesday</div>
+      <div class="tc-title">HR Dictionary — "Talent Pipeline"</div>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-label" style="color:#1A7A52;">Official definition</div>
+        <div class="tc-bubble">
+          <strong>"Talent Pipeline"</strong> — a structured system of identifying, developing, and retaining high-potential employees to fill critical roles in the future.
+        </div>
+      </div>
+      <div class="tc-arrow"><span>→</span></div>
+      <div class="tc-col">
+        <div class="tc-col-label" style="color:#1A7A52;">Real definition</div>
+        <div class="tc-bubble result">
+          <strong>"Talent Pipeline"</strong> — a spreadsheet Diane in HR made in 2019 that has not been opened since. It contains the names of four employees, two of whom have already left the company.
+        </div>
+      </div>
+    </div>
+    <div class="tc-footer">
+      <span class="tc-footer-icon">💡</span>
+      <span><strong>Why this shares:</strong> The "Diane" specificity is what makes this funny. It's not generic — it's a scene every HR person has lived. This is the format most likely to get comment threads where people share their own versions.</span>
+    </div>
+  </div>
+  <div class="cta-box">
+    <div class="cta-label">Post CTA</div>
+    <div class="cta-text">If your talent pipeline is more wishful thinking than working system, let's talk. SEED Academy helps HR teams build development programmes that actually run — and don't live only in Diane's spreadsheet. → [link]</div>
+  </div>
+
+  <div class="pill-divider"></div>
+
+  <!-- THURSDAY -->
+  <div class="translation-card">
+    <div class="tc-header">
+      <div class="tc-day-badge day-thu">Thursday</div>
+      <div class="tc-title">Trend Translation — "Quiet Quitting Discourse Energy"</div>
+    </div>
+    <div class="tc-body">
+      <div class="tc-col">
+        <div class="tc-col-label" style="color:#916000;">The trending moment</div>
+        <div class="tc-bubble">
+          That viral clip of someone explaining they "set a boundary" at work by simply… not replying to Slack after 6pm. 1.2M likes. Everyone in comments calling them "brave."
+        </div>
+      </div>
+      <div class="tc-arrow"><span>→</span></div>
+      <div class="tc-col">
+        <div class="tc-col-label" style="color:#1A7A52;">The HR translation</div>
+        <div class="tc-bubble result">
+          <strong>HR watching this video:</strong> "Brave? Babe, I've been trying to build a policy that makes this normal for 3 years. You went viral. I got a budget rejection. We are not the same."
+        </div>
+      </div>
+    </div>
+    <div class="tc-footer">
+      <span class="tc-footer-icon">💡</span>
+      <span><strong>Why this shares:</strong> Thursday's trend pick leans into workplace culture debates that are already viral — HR leaders have a uniquely frustrated inside view on these conversations and love content that articulates it.</span>
+    </div>
+  </div>
+
+  <div class="pill-divider"></div>
+
+  <!-- FRIDAY -->
+  <div class="translation-card">
+    <div class="tc-header">
+      <div class="tc-day-badge day-fri">Friday</div>
+      <div class="tc-title">HR Confessions — Community Submission Post</div>
+    </div>
+    <div class="tc-body" style="grid-template-columns: 1fr;">
+      <div class="tc-col">
+        <div class="tc-bubble" style="background: var(--seed-green-light);">
+          <strong>🗣️ It's Friday. Drop it in the comments.</strong><br><br>
+          What's the last thing your boss said that needed an HR translator?<br><br>
+          Best submission gets translated next Monday and tagged on our page. 👇
+        </div>
+      </div>
+    </div>
+    <div class="tc-footer">
+      <span class="tc-footer-icon">💡</span>
+      <span><strong>Why this works:</strong> Gives HR leaders a safe, funny outlet. Drives comments (algorithm loves this), generates free content for the following Monday, and makes the community feel like participants — not passive followers.</span>
+    </div>
+  </div>
+</section>
+
+<!-- VIRALITY -->
+<section id="virality">
+  <div class="section-label">What Makes HR Leaders Share</div>
+  <h2>The Virality Framework</h2>
+  <p class="section-intro">Based on the LinkedIn Translator model and the psychology of professional humour sharing — here's what drives each type of share behaviour in the HR leader audience.</p>
+
+  <div class="virality-grid">
+    <div class="v-card">
+      <div class="v-score" style="color: #5B3FBF;">😖</div>
+      <div class="v-label" style="color: var(--seed-muted); font-size:12px;">Share trigger #1</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-top:4px;">Painful Recognition</div>
+      <div class="v-desc">"This is my life." The reader has lived this exact scenario. The translation isn't exaggerated — it's precise. They share because they need others to know they're not alone.</div>
+      <div class="v-triggers">
+        <span class="v-trigger">Too real</span>
+        <span class="v-trigger">Why did you film my office</span>
+        <span class="v-trigger">I felt this</span>
+      </div>
+    </div>
+    <div class="v-card">
+      <div class="v-score" style="color: #BF3F3F;">😂</div>
+      <div class="v-label" style="color: var(--seed-muted); font-size:12px;">Share trigger #2</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-top:4px;">Tagging Humour</div>
+      <div class="v-desc">"I immediately thought of [person]." The content is funny enough to share AND specific enough that it maps to a real person the reader knows — a colleague, a boss, a peer.</div>
+      <div class="v-triggers">
+        <span class="v-trigger">Tagging Mark</span>
+        <span class="v-trigger">My CEO exactly</span>
+        <span class="v-trigger">Sending to my team</span>
+      </div>
+    </div>
+    <div class="v-card">
+      <div class="v-score" style="color: #1A7A52;">🙋</div>
+      <div class="v-label" style="color: var(--seed-muted); font-size:12px;">Share trigger #3</div>
+      <div class="v-desc" style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-top:4px;">Identity Signal</div>
+      <div class="v-desc">HR leaders have strong professional identity. Content that says "real HR people get this" is shareable because reposting it signals membership in the community — "I'm the kind of HR leader who knows what's actually going on."</div>
+      <div class="v-triggers">
+        <span class="v-trigger">As an HR leader</span>
+        <span class="v-trigger">Real ones know</span>
+        <span class="v-trigger">HRBP energy</span>
+      </div>
+    </div>
+    <div class="v-card">
+      <div class="v-score" style="color: #916000;">💬</div>
+      <div class="v-label" style="color: var(--seed-muted); font-size:12px;">Share trigger #4</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-top:4px;">Comment Bait</div>
+      <div class="v-desc">Posts that end on an open blank — "what would you add?" or just an obvious missing translation — get comment threads. Algorithm promotes these heavily, which drives organic reach back to SEED.</div>
+      <div class="v-triggers">
+        <span class="v-trigger">Add yours below</span>
+        <span class="v-trigger">What am I missing</span>
+        <span class="v-trigger">Thread incoming</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pill-divider"></div>
+  <div class="section-label">Persona Insights</div>
+  <h2>What Would Timmy & Sam Share?</h2>
+  <p class="section-intro">Two HR leader archetypes — based on the audience type SEED typically works with. Validate these with the real people and adjust the translation tone accordingly.</p>
+
+  <div class="persona-card">
+    <div class="persona-header">
+      <div class="persona-avatar" style="background:#EDE8FD;color:#5B3FBF;">TK</div>
+      <div>
+        <div class="persona-name">Timmy (The Strategic CHRO)</div>
+        <div class="persona-role">CHR or Head of People, 200–800-person company, 8–15 years in HR</div>
+      </div>
+    </div>
+    <div class="persona-quote">
+      "I share things that make me look like I have a sense of humour about this job — but that also show I understand the bigger strategic picture. I don't share anything too whiny or too junior. I want my peers to read it and think: yes, this person gets it."
+    </div>
+    <div class="persona-shares">
+      <div class="persona-shares-title">Timmy will share content that:</div>
+      <ul class="share-list">
+        <li>Reveals the gap between leadership intent and HR execution reality (strategy-level irony)</li>
+        <li>Has a punchy, quotable headline that can stand alone as a screenshot</li>
+        <li>Makes C-suite dysfunction legible without naming names — plausible deniability humour</li>
+        <li>Includes a Wednesday-style "HR Dictionary" entry about a strategy buzzword his CEO loves</li>
+        <li>Ends with a CTA that sounds like a peer recommendation, not a vendor pitch</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="persona-card">
+    <div class="persona-header">
+      <div class="persona-avatar" style="background:#FDE8E8;color:#BF3F3F;">SL</div>
+      <div>
+        <div class="persona-name">Sam (The Relatable HR Manager)</div>
+        <div class="persona-role">HR Manager or HRBP, 50–200-person company, 4–8 years in HR</div>
+      </div>
+    </div>
+    <div class="persona-quote">
+      "I share things my friends in HR will immediately screenshot and send in our WhatsApp group. If it makes me laugh out loud, I share it. If it makes me feel seen, I share it. If it makes me feel less alone at 5pm on a Wednesday, I share it twice."
+    </div>
+    <div class="persona-shares">
+      <div class="persona-shares-title">Sam will share content that:</div>
+      <ul class="share-list">
+        <li>Features the Monday "Boss Translator" format — specifically a Slack message that sounds like Sam's own manager</li>
+        <li>Has a relatable ending twist (the best translations have a sting in the tail)</li>
+        <li>Is short enough to read in 10 seconds but lands a punchline that echoes</li>
+        <li>Validates the emotional labour of being an HR manager in a company that doesn't invest in training</li>
+        <li>Friday UGC posts — Sam will comment AND reshare when her submission gets featured</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DIRECTIONS -->
+<section id="directions">
+  <div class="section-label">Where to Take This</div>
+  <h2>Expansion Directions</h2>
+  <p class="section-intro">The "HR Translation" concept is a platform, not just a post series. Here are 6 ways to scale it once the weekly cadence is established — from digital tools to events.</p>
+
+  <div class="direction-card">
+    <div class="direction-num">01</div>
+    <div class="direction-title">Build an Actual HR Translator Tool</div>
+    <div class="direction-desc">Inspired directly by the LinkedIn Speak Translator — build a simple web tool where HR leaders paste in a corporate email/memo and get the "HR Translation" back. Viral by design. Free to use. SEED-branded. Can be embedded in LinkedIn posts ("try our free translator"). Drives direct traffic to SEED's site and captures leads through a subscribe gate for the full translation report.</div>
+    <div class="direction-example"><strong>Example hook:</strong> "Paste in your CEO's last all-hands summary. We'll tell you what HR actually needs to do about it."</div>
+  </div>
+
+  <div class="direction-card">
+    <div class="direction-num">02</div>
+    <div class="direction-title">The HR Translation Glossary (Lead Magnet)</div>
+    <div class="direction-desc">A downloadable PDF or microsite: "50 Corporate Phrases, Translated for HR." Free download in exchange for email. Circulates on LinkedIn as a shareable document. Every entry ends with a training nudge. Acts as a soft pitch deck disguised as a comedy document. Can be repurposed as a talk intro at HR events or a leave-behind at conferences.</div>
+    <div class="direction-example"><strong>Example entry:</strong> "We're investing in our people" → Translation: "We are about to ask HR to design a recognition programme with a budget of zero and launch it in two weeks."</div>
+  </div>
+
+  <div class="direction-card">
+    <div class="direction-num">03</div>
+    <div class="direction-title">"Live Translation" on LinkedIn Events</div>
+    <div class="direction-desc">Host a monthly 30-minute LinkedIn Live where SEED invites 1 HR leader guest (Timmy, Sam, etc.) to do live translation of 5 real (anonymised) corporate memos, Slack messages, or job postings. Funny, fast, interactive with live audience comments. Ends with a SEED pitch in the last 3 minutes. Creates 5 clips for the next month of Tuesday Trend Translation posts.</div>
+    <div class="direction-example"><strong>Format:</strong> "Corporate said: [reads memo]. Our guest HR translator: [reads translation]. Audience votes: too real / too kind / you missed the worst part."</div>
+  </div>
+
+  <div class="direction-card">
+    <div class="direction-num">04</div>
+    <div class="direction-title">Employee Perspective Edition</div>
+    <div class="direction-desc">Flip the direction: translate what employees say to HR — and what they actually mean. "I'm looking for growth opportunities" = "My manager hasn't spoken to me in 4 months." This creates a second content track that's just as shareable, positions SEED as understanding the full employee experience, and opens up a separate audience (employees who want to share with their HR teams).</div>
+    <div class="direction-example"><strong>Series name suggestion:</strong> "The Employee-to-HR Dictionary" — pairs with the Boss Translator as a weekly alternating guest edition.</div>
+  </div>
+
+  <div class="direction-card">
+    <div class="direction-num">05</div>
+    <div class="direction-title">Industry-Specific Translation Packs</div>
+    <div class="direction-desc">Once the general series has traction, create industry editions: "Banking Translation," "Tech Startup Translation," "Manufacturing HR Translation." The specific language shifts per industry (banks say "governance," startups say "velocity," manufacturers say "operational efficiency") and so do the translations. These can be pitched as sponsored editions to industry associations, expanding SEED's reach beyond organic LinkedIn.</div>
+    <div class="direction-example"><strong>Tech startup example:</strong> "We move fast and break things" → Translation: "We don't have an HR policy, an employment contract template, or a clue, and I've just been promoted to run it."</div>
+  </div>
+
+  <div class="direction-card">
+    <div class="direction-num">06</div>
+    <div class="direction-title">The Annual "Untranslatable" Award</div>
+    <div class="direction-desc">Run a yearly campaign: "Submit the most untranslatable corporate phrase of the year." Public voting, winner gets featured in a proper designed post + a free SEED training seat for their team. Generates massive UGC, press-worthy, and positions SEED as a community institution — not just a vendor. Ideal to run in December when HR content engagement spikes.</div>
+    <div class="direction-example"><strong>Campaign name:</strong> "The SEED Decoder Awards" — "Because some things in HR need more than a translator."</div>
+  </div>
+
+</section>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
